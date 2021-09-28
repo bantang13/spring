@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="productionTool" class="com.pctc.service.ProductionTool">
+        <property name="pName" value="电脑"/>
+    </bean>
+
+    <bean id="transportation" class="com.pctc.service.Transportation">
+        <property name="tName" value="地铁"/>
+    </bean>
+
+    <bean id="worker" class="com.pctc.service.Worker">
+        <constructor-arg ref="productionTool"/>
+        <constructor-arg ref="transportation"/>
+    </bean>
+</beans>
