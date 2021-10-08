@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--切面bean-->
+    <bean id="aspectBean" class="com.pctc.intercept.MyIntercept"/>
+
+    <!--业务bean-->
+    <bean id="personService" class="com.pctc.service.impl.PersonServiceImpl"/>
+
+        <!--配置AOP-->
+        <aop:config>
+
+            <!--定义切面,引入切面bean,并定义切面执行的顺序-->
+            <aop:aspect id="asp" ref="aspectBean" order="1">
+
+                <!--将包中所有的方法看作为若干个切入点-->
+                <aop:pointcut id="myCut" expression="execution(* com.pctc.service.impl.*.*(..))"/>
+
+                <!--切入点之前通知,作为前置方法-->
+                <aop:before method="doBeforeRunning" pointcut-ref="myCut"/>
+
+                <!--切入点之前通知,作为后置方法-->
+                <aop:after method="doAfterRunning" pointcut-ref="myCut"/>
+
+
+            </aop:aspect>
+
+
+        </aop:config>
+
+
+</beans>
